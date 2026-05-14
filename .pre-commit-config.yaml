@@ -1,0 +1,35 @@
+repos:
+  # 使用项目 .venv 里的工具（uv sync 后自动生成）
+  # language: script 允许使用相对路径，git hook 从项目根目录运行
+  - repo: local
+    hooks:
+      # ruff：代码风格检查（相当于 flake8 + isort）
+      - id: ruff
+        name: ruff (lint)
+        entry: .venv/bin/ruff
+        args: [check, --fix]
+        language: script
+        types: [python]
+
+      # ruff-format：代码格式化（相当于 black）
+      - id: ruff-format
+        name: ruff (format)
+        entry: .venv/bin/ruff
+        args: [format]
+        language: script
+        types: [python]
+
+      # mypy：类型检查（松模式）
+      - id: mypy
+        name: mypy
+        entry: .venv/bin/mypy
+        args: [--ignore-missing-imports, --no-strict-optional]
+        language: script
+        types: [python]
+
+      # nbstripout：清除 Jupyter notebook 的输出
+      - id: nbstripout
+        name: nbstripout
+        entry: .venv/bin/nbstripout
+        language: script
+        types: [jupyter]
