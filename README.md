@@ -4,6 +4,10 @@ RNA 知识图谱与结构折叠预测研究项目。
 
 ## 环境搭建（从零开始）
 
+### Python 版本要求
+
+本项目需要 **Python 3.11 或 3.12**（不支持 3.13+，因为 torch 2.4 尚未支持 3.13）。
+
 ### 第一步：安装 uv
 
 `uv` 是一个现代 Python 依赖管理工具，比 pip/conda 快很多。
@@ -33,11 +37,23 @@ cd rna_kg_fold
 
 ### 第三步：创建虚拟环境并安装依赖
 
-下面这一条命令会自动创建 `.venv/` 虚拟环境并安装所有依赖（包括 CPU 版 PyTorch）：
+下面这一条命令会自动创建 `.venv/` 虚拟环境并安装所有依赖（含开发工具）：
 
 ```bash
-uv sync --extra dev
+uv sync --python 3.11
 ```
+
+> **PyTorch 版本说明（自动按平台选择）**：
+> - **macOS**：自动从 PyPI 安装 CPU 版 torch 2.4.x
+> - **Linux（集群）**：自动从 PyTorch 官方 CUDA 源安装 CUDA 12.4 版 torch 2.4.x
+>
+> 无需手动指定，`uv` 会根据操作系统自动选择正确的版本。
+
+> **如果 uv 选错了 Python 版本**（例如选了 3.13），用以下命令修复：
+> ```bash
+> uv python install 3.11
+> uv sync --python 3.11
+> ```
 
 > **说明**：首次运行需要下载约 1-2 GB 的依赖包（主要是 PyTorch），请耐心等待。
 
@@ -60,10 +76,20 @@ pre-commit install
 ### 第六步：验证安装
 
 ```bash
-pytest tests/ -v
+uv run python -m pytest tests/ -v
 ```
 
 所有测试通过（绿色 PASSED）说明环境搭建成功。
+
+### 集群（Linux/CUDA）验证 GPU 可用性
+
+登录集群并完成上述环境搭建后，运行以下命令验证 GPU 可访问：
+
+```bash
+uv run python -c "import torch; print(torch.__version__, torch.cuda.is_available())"
+```
+
+预期输出类似：`2.4.1+cu124 True`
 
 ---
 
@@ -102,7 +128,7 @@ wandb login
 
 ## GPU 集群部署
 
-> 本地开发使用 CPU 版 PyTorch。集群上的 GPU 版本安装详见 `scripts/install_gpu.sh`（待补充）。
+在 Linux 集群上执行同样的 `uv sync --python 3.11`，uv 会自动安装 CUDA 12.4 版的 torch 2.4.x，无需额外操作。
 
 ## License
 

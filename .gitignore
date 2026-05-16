@@ -31,5 +31,8 @@ logs/
 .env
 .env.*
 
+# Claude Code 本地权限缓存（含机器路径，不应提交）
+.claude/settings.local.json
+
 # macOS
 .DS_Store
