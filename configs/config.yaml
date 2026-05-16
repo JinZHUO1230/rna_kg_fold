@@ -1,0 +1,25 @@
+# Hydra 全局配置入口
+# 解释：Hydra 是一个配置管理框架，可以让你在命令行覆盖任意配置项
+
+defaults:
+  - _self_
+
+project:
+  name: rna_kg_fold
+  seed: 42
+
+# wandb（实验追踪工具）的 4 个实验分组
+# 用法：在代码中用 wandb.init(group=cfg.wandb.group) 指定分组
+wandb:
+  project: rna_kg_fold
+  group: data_eda  # 可选: data_eda | pretraining | structure_training | ablation
+  mode: online     # 离线调试时改为 offline
+
+data:
+  raw_dir: data/raw
+  processed_dir: data/processed
+
+training:
+  batch_size: 32
+  max_epochs: 100
+  learning_rate: 1e-3

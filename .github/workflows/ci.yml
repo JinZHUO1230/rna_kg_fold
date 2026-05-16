@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  push:
+    branches: [main, dev]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 拉取代码
+        uses: actions/checkout@v4
+
+      - name: 安装 uv（Python 依赖管理工具）
+        uses: astral-sh/setup-uv@v5
+        with:
+          version: "latest"
+          enable-cache: true
+
+      - name: 安装 Python 3.11
+        run: uv python install 3.11
+
+      - name: 安装项目依赖（含开发工具）
+        run: uv sync --extra dev
+
+      - name: 运行 pre-commit 检查
+        run: uv run pre-commit run --all-files
+
+      - name: 运行测试
+        run: uv run pytest tests/ -v

@@ -1,0 +1,35 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+
+# Virtual environment (uv creates this)
+.venv/
+
+# Tools cache
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+
+# Data (large files – tracked separately via DVC or cloud storage)
+data/raw/
+data/processed/
+data/interim/
+
+# Experiment outputs
+wandb/
+outputs/
+logs/
+*.log
+
+# Notebooks checkpoints
+.ipynb_checkpoints/
+
+# Environment variables (secrets)
+.env
+.env.*
+
+# macOS
+.DS_Store
