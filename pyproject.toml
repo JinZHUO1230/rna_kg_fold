@@ -4,7 +4,7 @@ version = "0.1.0"
 description = "RNA Knowledge Graph + Folding Prediction"
 readme = "README.md"
 license = { text = "MIT" }
-requires-python = ">=3.11"
+requires-python = ">=3.11,<3.13"
 dependencies = [
     "torch==2.4.*",
     "pytorch-lightning==2.4.*",
@@ -17,7 +17,7 @@ dependencies = [
     "rdkit",
 ]
 
-[project.optional-dependencies]
+[dependency-groups]
 dev = [
     "pytest>=8.0",
     "pytest-cov",
@@ -31,11 +31,13 @@ dev = [
 package = false
 
 [tool.uv.sources]
-torch = { index = "pytorch-cpu" }
+torch = [
+    { index = "pytorch-cu124", marker = "sys_platform == 'linux'" },
+]
 
 [[tool.uv.index]]
-name = "pytorch-cpu"
-url = "https://download.pytorch.org/whl/cpu"
+name = "pytorch-cu124"
+url = "https://download.pytorch.org/whl/cu124"
 explicit = true
 
 [tool.ruff]

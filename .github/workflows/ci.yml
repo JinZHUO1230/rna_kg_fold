@@ -24,7 +24,7 @@ jobs:
         run: uv python install 3.11
 
       - name: 安装项目依赖（含开发工具）
-        run: uv sync --extra dev
+        run: uv sync --python 3.11
 
       - name: 运行 pre-commit 检查
         run: uv run pre-commit run --all-files
