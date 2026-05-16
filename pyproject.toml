@@ -21,7 +21,7 @@ dependencies = [
 dev = [
     "pytest>=8.0",
     "pytest-cov",
-    "mypy>=1.10,<2.0",
+    "mypy==1.14.1",
     "ruff>=0.4",
     "pre-commit",
     "nbstripout",
