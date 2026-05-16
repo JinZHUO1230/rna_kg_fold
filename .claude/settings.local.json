@@ -1,9 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(PATH=\"$HOME/.local/bin:/Library/Frameworks/Python.framework/Versions/3.9/bin:$PATH\" uv run *)",
-      "Bash(git add *)",
-      "Bash(uv run *)"
-    ]
-  }
-}
