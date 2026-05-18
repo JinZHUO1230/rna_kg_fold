@@ -36,3 +36,12 @@ logs/
 
 # macOS
 .DS_Store
+
+# 项目进展与 Claude 工作指令（本地维护，不入库）
+CLAUDE.md
+PROGRESS.md
+
+# --- W1-T02a: ignore data products, keep code under data/ ---
+data/pdb_rna/
+rna3db/
+notebooks/*_executed.ipynb
